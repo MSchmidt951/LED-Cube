@@ -76,7 +76,7 @@ int LED_Cube::index(int x, int y, int z){
 }
 
 
-void LED_Cube::startAnim(Animation *a, bool forceStart=false){
+void LED_Cube::startAnim(Animation *a, bool forceStart){
   if (forceStart or not runningAnim) {
     anim = a;
     anim->start();
