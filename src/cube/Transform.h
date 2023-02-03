@@ -9,12 +9,15 @@ class Transform {
   public:
     Transform(LED_Cube *c);
 
-    void fwd(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1); //back to front
-    void back(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1); //front to back
+    void fwd(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
+    void back(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
     void up(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
     void down(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
     void left(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
     void right(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
+
+    void rotateOutside(int minZ=0, int maxZ=-1);
+    void rotateOutsideAnti(int minZ=0, int maxZ=-1);
 
   private:
     LED_Cube *cube;

@@ -22,8 +22,8 @@ class LED_Cube {
     //Basic functions
     void singleLED(int pos, int r, int g, int b, int time=0);
     int getLEDnum(int xCord, int yCord, int zCord);
-    void update(int delayTime=0); ////Changed from void ledShow
-    void setAll(int r, int g, int b); ////Changed from void ChangeColour
+    void update(int delayTime=0);
+    void setAll(int r, int g, int b);
     void setAll(CRGB col);
     CRGB& get(int x, int y, int z);
     int index(int x, int y, int z);

@@ -55,7 +55,7 @@ void LED_Cube::update(int delayTime){
       i++;
     }
   }
-  ////FastLED.show();
+  FastLED.show();
   delay(delayTime);
 }
 
