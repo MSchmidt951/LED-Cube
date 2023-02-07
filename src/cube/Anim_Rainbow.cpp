@@ -2,6 +2,11 @@
 #include "LED_Cube.h"
 
 void RainbowRnd::animSetup(){
+  //Settings
+  defaultRate = 200;
+  defaultLoopCount = 4;
+  updatesPerLoop = 255/5;
+  
   for(int i=0; i<cube->getLEDcount(); i++){
     rainbowHues[i%randCount] = random(256);
     cube->LEDs[i] = CHSV(rainbowHues[i%randCount], 255, brightness);
@@ -20,6 +25,11 @@ void RainbowRnd::anim(){
 
 
 void RainbowRows::animSetup(){
+  //Settings
+  defaultRate = 250;
+  defaultLoopCount = 4;
+  updatesPerLoop = 255/4;
+
   currentHue = random(256);
 }
   
@@ -31,6 +41,12 @@ void RainbowRows::anim(){
 
 
 void RainbowSolid::animSetup(){
+  //Settings
+  defaultRate = 250;
+  defaultLoopCount = 4;
+  updatesPerLoop = 255/2;
+  defaultBrightness = 110;
+
   currentHue = random(256);
 }
 
