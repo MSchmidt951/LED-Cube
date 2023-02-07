@@ -2,10 +2,14 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import axes3d
 import numpy as np
 
+##Settings
 size = (5, 5, 5)
+constUpdateRate = True
+
 LEDcount = size[0] * size[1] * size[2]
 LEDs = np.zeros((*size, 3))
-cubeStates = []
+cubeStates = [np.reshape(np.copy(LEDs).flatten(), (LEDcount, 3))]
+cubeStateTime = np.array([0])
 
 def parseLED(text):
     return np.array([
@@ -19,22 +23,28 @@ def strToCol(s, i):
 with open('debugData.txt', 'r') as file:
     for line in file:
         lineArr = line.split(',')
-        currentState = np.copy(LEDs)
+        currentState = np.copy(LEDs).reshape(LEDcount, 3)
         for i in range(LEDcount):
-            currentState[i//(size[0]*size[1]), (i//size[1])%size[1], i%size[0]] = parseLED(lineArr[i+1])
-        currentState = np.reshape(currentState.flatten(), (LEDcount, 3))
-        cubeStates.append((int(lineArr[0]), currentState))
+            currentState[i] = parseLED(lineArr[i+1])
 
+        cubeStates = np.concatenate((cubeStates, [currentState]), axis=0)
+        cubeStateTime = np.append(cubeStateTime, int(lineArr[0]))
+
+plt.ion()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-#ax.set_xlabel('X')
-#ax.set_ylabel('Y')
-#ax.set_zlabel('Z')
 
-x = [i for i in range(size[0])]*size[1]*size[2]
-y = [(i//size[1])%size[1] for i in range(LEDcount)]
+x = [i for i in range(size[0])] * size[1]*size[2]
+y = [(i//size[0])%size[1] for i in range(LEDcount)]
 z = [i//(size[0]*size[1]) for i in range(LEDcount)]
 
-ax.scatter(x, y, z, c=cubeStates[0][1], depthshade=False, s=100)
-plt.show()
-
+lastUpdate = 0
+for i in range(1, len(cubeStates)):
+    if constUpdateRate:
+        plt.pause(.1)
+    else:
+        plt.pause((cubeStateTime[i] - lastUpdate)/2000)
+    lastUpdate = cubeStateTime[i]
+    ax.clear()
+    ax.scatter(x, y, z, c=cubeStates[i], depthshade=False, s=100)
+    fig.canvas.draw()
