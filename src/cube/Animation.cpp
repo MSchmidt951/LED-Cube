@@ -3,6 +3,10 @@
 
 Animation::Animation(LED_Cube *c){
   cube = c;
+
+  for (int i=0; i<3; i++) {
+    size[i] = cube->getSize(i);
+  }
 }
 
 void Animation::start(uint16_t loops){
@@ -11,7 +15,7 @@ void Animation::start(uint16_t loops){
   animSetup();
   cube->update();
 
-  nextUpdate = 0;
+  nextUpdate = millis() + (defaultRate * cube->getUpdateRate());
   loopCount = 0;
   updateCount = 0;
   
@@ -24,8 +28,10 @@ void Animation::start(uint16_t loops){
 
 bool Animation::run(){
   if (nextUpdate < millis()) {
+    loopUpdateCount = updateCount%updatesPerLoop;
     anim();
     cube->update();
+    cube->debug(millis());
 
     nextUpdate = millis() + (defaultRate * cube->getUpdateRate());
     updateCount++;

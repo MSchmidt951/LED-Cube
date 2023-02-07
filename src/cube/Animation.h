@@ -17,6 +17,7 @@ class Animation {
     virtual void anim() = 0;
 
     LED_Cube *cube;
+    int size[3];
     //Settings
     uint16_t defaultRate;
     uint16_t defaultLoopCount;
@@ -24,12 +25,10 @@ class Animation {
     uint8_t defaultBrightness = 125;
     //Status vars
     uint8_t brightness;
-
-  private:
-    //Status vars
     uint16_t maxUpdates;
     unsigned long nextUpdate;
     uint16_t loopCount;
     uint16_t updateCount;
+    uint16_t loopUpdateCount;
 };
 #endif

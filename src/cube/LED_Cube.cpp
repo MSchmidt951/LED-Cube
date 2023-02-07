@@ -80,6 +80,7 @@ void LED_Cube::startAnim(Animation *a, bool forceStart){
   if (forceStart or not runningAnim) {
     anim = a;
     anim->start();
+    runningAnim = true;
   }
 }
 

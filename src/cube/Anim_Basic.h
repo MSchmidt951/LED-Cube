@@ -12,31 +12,24 @@ class Rain : public Animation {
     void animSetup();
     void anim();
 
-    //Settings
+  private:
+    //Animation specific settings
     uint16_t defaultRateMin = 80;
     uint16_t defaultRateMax = 101;
-    uint16_t defaultLoopCount;
-    uint16_t updatesPerLoop;
-    uint8_t defaultBrightness = 125;
-    //Animation specific settings
 
-  private:
-    int rainDelayTime[25];
-    int rainHeight[25];
+    uint16_t rainDelayTime[100];
+    uint8_t rainHeight[100];
 };
 
 class Wave : public Animation {
   using Animation::Animation;
 
+  public:
+    CRGB colour = CRGB::Red;
+
   protected:
     void animSetup();
     void anim();
-
-    //Settings
-    uint16_t defaultRate;
-    uint16_t defaultLoopCount;
-    uint16_t updatesPerLoop;
-    uint8_t defaultBrightness = 125;
 };
 
 #endif
