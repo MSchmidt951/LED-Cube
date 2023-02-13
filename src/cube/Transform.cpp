@@ -235,8 +235,8 @@ void Transform::right(bool loop, int minX, int maxX, int minY, int maxY, int min
   }
 }
 
-void Transform::rotateOutside(int minZ, int maxZ) {
-    if (maxZ < 0 or maxZ >= size[2]) {
+void Transform::rotateOutside(bool loop, int minZ, int maxZ) {
+  if (maxZ < 0 or maxZ >= size[2]) {
     maxZ = size[2]-1;
   }
 
@@ -257,13 +257,18 @@ void Transform::rotateOutside(int minZ, int maxZ) {
     }
 
     cube->get(0, 1, z) = tempLED[0];
+    
+    if (not loop) {
+      cube->get(0, 0, z) = CRGB::Black;
+    }
   }
 }
 
-void Transform::rotateOutsideAnti(int minZ, int maxZ) {
-    if (maxZ < 0 or maxZ >= size[2]) {
+void Transform::rotateOutsideAnti(bool loop, int minZ, int maxZ) {
+  if (maxZ < 0 or maxZ >= size[2]) {
     maxZ = size[2]-1;
   }
+  int yStart = false ? 0 : 1;
 
   for(int z=minZ; z<=maxZ; z++) {
     tempLED[0] = cube->get(0, 0, z);
@@ -282,5 +287,9 @@ void Transform::rotateOutsideAnti(int minZ, int maxZ) {
     }
 
     cube->get(1, 0, z) = tempLED[0];
+    
+    if (not loop) {
+      cube->get(0, 0, z) = CRGB::Black;
+    }
   }
 }

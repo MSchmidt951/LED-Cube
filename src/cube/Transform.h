@@ -16,8 +16,8 @@ class Transform {
     void left(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
     void right(bool loop=true, int minX=0, int maxX=-1, int minY=0, int maxY=-1, int minZ=0, int maxZ=-1);
 
-    void rotateOutside(int minZ=0, int maxZ=-1);
-    void rotateOutsideAnti(int minZ=0, int maxZ=-1);
+    void rotateOutside(bool loop=true, int minZ=0, int maxZ=-1);
+    void rotateOutsideAnti(bool loop=true, int minZ=0, int maxZ=-1);
 
   private:
     LED_Cube *cube;

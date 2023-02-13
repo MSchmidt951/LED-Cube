@@ -1,8 +1,6 @@
 #ifndef __Anim_Rainbow_H__
 #define __Anim_Rainbow_H__
 
-#include <FastLED.h>
-
 #include "Animation.h"
 
 class RainbowRnd : public Animation {

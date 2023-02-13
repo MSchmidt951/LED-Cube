@@ -16,8 +16,6 @@ void Animation::start(uint16_t loops){
   cube->update();
 
   nextUpdate = millis() + (defaultRate * cube->getUpdateRate());
-  loopCount = 0;
-  updateCount = 0;
   
   if (loops == 0) {
     maxUpdates = updatesPerLoop * defaultLoopCount;
@@ -42,7 +40,7 @@ bool Animation::run(){
   return true;
 }
 
-void Animation::setBrightness(int b){
+void Animation::setBrightness(int16_t b){
   if (b == -1) {
     brightness = defaultBrightness;
   } else if (b >= 0 and b <= 255) {

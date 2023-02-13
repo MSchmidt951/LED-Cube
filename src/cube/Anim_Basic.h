@@ -1,8 +1,6 @@
 #ifndef __Anim_Basic_H__
 #define __Anim_Basic_H__
 
-#include <FastLED.h>
-
 #include "Animation.h"
 
 class Rain : public Animation {

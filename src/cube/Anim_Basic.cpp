@@ -53,8 +53,8 @@ void Rain::anim(){
 
 void Wave::animSetup(){
   //Settings
-  defaultRate = 10;
-  defaultLoopCount = 3;
+  defaultRate = 125;
+  defaultLoopCount = 2;
   updatesPerLoop = size[0] + size[2] + size[2] - 2;
 
   for (int x=0; x<size[0]; x++) {
