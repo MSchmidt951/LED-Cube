@@ -43,10 +43,6 @@ void LED_Cube::singleLED(int pos, int r, int g, int b, int time){
   delay(time);
 }
 
-int LED_Cube::getLEDnum(int xCord, int yCord, int zCord){
-  return(xCord + yCord*size[1] + zCord*size[2]);
-}
-
 void LED_Cube::update(int delayTime){
   int i = 0;
   for (int p=0; p<pinCount; p++) {
@@ -76,11 +72,26 @@ int LED_Cube::index(int x, int y, int z){
 }
 
 
-void LED_Cube::startAnim(Animation *a, bool forceStart){
+bool LED_Cube::startAnim(Animation *a, bool forceStart){
   if (forceStart or not runningAnim) {
     anim = a;
     anim->start();
     runningAnim = true;
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool LED_Cube::queueAnim(Animation *a){
+  if (animQueueStart == animQueueEnd and not runningAnim) {
+    startAnim(a);
+  } else if (animQueueStart != (animQueueEnd+1)%10) {
+    queuedAnims[animQueueEnd] = a;
+    animQueueEnd = (animQueueEnd+1) % 10;
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -88,6 +99,17 @@ void LED_Cube::updateAnim(){
   if (anim and runningAnim) {
     runningAnim = anim->run();
   }
+
+  if (not runningAnim and queuedAnims[animQueueStart]) {
+    if (startAnim(queuedAnims[animQueueStart])) {
+      queuedAnims[animQueueStart] = NULL;
+      animQueueStart = (animQueueStart+1) % 10;
+    }
+  }
+}
+
+bool LED_Cube::isRunningAnim(){
+  return runningAnim;
 }
 
 

@@ -21,15 +21,16 @@ class LED_Cube {
     int addPin(int len);
     //Basic functions
     void singleLED(int pos, int r, int g, int b, int time=0);
-    int getLEDnum(int xCord, int yCord, int zCord);
     void update(int delayTime=0);
     void setAll(int r, int g, int b);
     void setAll(CRGB col);
     CRGB& get(int x, int y, int z);
     int index(int x, int y, int z);
     //Animations
-    void startAnim(Animation *a, bool forceStart=false);
+    bool startAnim(Animation *a, bool forceStart=false);
+    bool queueAnim(Animation *a);
     void updateAnim();
+    bool isRunningAnim();
     Transform *t;
     //Cube info
     int getLEDcount();
@@ -53,6 +54,9 @@ class LED_Cube {
     int ledsOutLen[MAX_LED_PINS];
     //Animations
     Animation *anim;
+    Animation *queuedAnims[10];
+    int animQueueStart = 0;
+    int animQueueEnd = 0;
     bool runningAnim = false;
     //Misc
     uint8_t brightness = 125;
