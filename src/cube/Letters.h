@@ -1,3 +1,10 @@
+#ifndef __Letters_H__
+#define __Letters_H__
+
+#include "Animation.h"
+
+#define MAX_LETTERS 32
+
 constexpr struct Letters_5 {
   const bool A[5][5] = {
     {1,1,1,1,1},
@@ -254,11 +261,11 @@ constexpr struct Letters_5 {
   };
   
   const bool ex[5][5] = {
-    {0,0,1,0,0},
-    {0,0,1,0,0},
-    {0,0,1,0,0},
+    {0,0,0,0,1},
+    {0,0,0,0,1},
+    {0,0,0,0,1},
     {0,0,0,0,0},
-    {0,0,1,0,0}
+    {0,0,0,0,1}
   };
   const bool dot[5][5] = {
     {0,0,0,0,0},
@@ -275,3 +282,21 @@ constexpr struct Letters_5 {
     {0,0,0,0,0}
   };
 } letters_5;
+
+class TypeLetter : public Animation {
+  using Animation::Animation;
+
+  public:
+    CRGB colour = CRGB::Aquamarine;
+    bool addLetter(const bool l[5][5]);
+
+  protected:
+    void animSetup();
+    void anim();
+
+  private:
+    bool (*letters[5])[5];
+    uint8_t totalLetters = 0;
+};
+
+#endif
